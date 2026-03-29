@@ -1,0 +1,6 @@
+pydantic
+uvicorn
+motor
+fastapi
+python-jose
+passlib
