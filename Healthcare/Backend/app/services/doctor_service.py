@@ -2,7 +2,6 @@ from app.repositories.doctor_repository import DoctorRepository
 from app.repositories.user_repository import UserRepository
 from app.exceptions.custom_exceptions import AppException
 
-
 class DoctorService:
 
     def __init__(self):
@@ -37,9 +36,21 @@ class DoctorService:
         if not doctor:
             raise AppException("Doctor profile not found", 404)
         return doctor
-
     async def get_all_doctors(self):
-        return await self.repo.get_all_doctors()
+        doctors = await self.user_repo.get_users_by_role("doctor")
+
+        # format for response
+        result = []
+        for doc in doctors:
+            result.append({
+                "id": str(doc["_id"]),
+                "name": doc.get("name"),
+                "email": doc.get("email"),
+                "role": doc.get("role"),
+                "is_approved": doc.get("is_approved", False)
+            })
+
+        return result
 
     async def update_doctor(self, doctor_id: str, update_data: dict):
         doctor = await self.repo.get_doctor_by_id(doctor_id)

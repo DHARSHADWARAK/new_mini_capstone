@@ -44,17 +44,21 @@ async def get_by_user(user_id: str):
     except AppException as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)
 
+from bson import ObjectId
+async def get_all_doctors(self):
+    doctors = await self.db["users"].find({"role": "doctor"}).to_list(100)
 
-@router.get("/", response_model=list[DoctorResponse])
+    # Convert ObjectId → string
+    for doc in doctors:
+        doc["_id"] = str(doc["_id"])
+
+    return doctors
+
+service = DoctorService()
+
+@router.get("/")
 async def get_all_doctors():
-    try:
-        doctors = await service.get_all_doctors()
-        return doctors
-
-    except AppException as e:
-        raise HTTPException(status_code=e.status_code, detail=e.message)
-
-
+    return await service.get_all_doctors()
 
 @router.put("/{doctor_id}", response_model=DoctorResponse)
 async def update_doctor(

@@ -26,3 +26,4 @@ async def login(data: LoginRequest):
         return user
     except AppException as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)
+    

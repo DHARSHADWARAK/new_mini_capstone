@@ -1,6 +1,11 @@
 from pydantic import BaseModel, EmailStr
 from app.schemas.user_schema import UserResponse
 
+class RegisterRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str

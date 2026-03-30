@@ -38,3 +38,4 @@ class UserService:
         if not user:
             raise AppException("User not found", 404)
         return user
+    

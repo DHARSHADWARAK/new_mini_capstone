@@ -20,6 +20,8 @@ class UserRepository:
         user = await self.collection.find_one({"_id": ObjectId(user_id)})
         return self._serialize(user)
 
+    async def get_users_by_role(self, role: str):
+        return await self.collection.find({"role": role}).to_list(100)
     def _serialize(self, user):
         if not user:
             return None

@@ -39,7 +39,15 @@ async def delete_user(user_id: str, user=Depends(require_role("admin"))):
 from bson import ObjectId
 from app.core.database import db
 
+@router.get("/doctors")
+async def get_doctors(user=Depends(require_role("admin"))):
+    doctors = await db["users"].find({"role": "doctor"}).to_list(100)
 
+    # convert ObjectId → string
+    for doc in doctors:
+        doc["_id"] = str(doc["_id"])
+
+    return doctors
 
 @router.put("/doctors/{user_id}/approve")
 async def approve_doctor(
