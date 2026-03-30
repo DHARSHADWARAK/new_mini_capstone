@@ -76,7 +76,7 @@ export default function ManageUsers() {
           <div style={styles.navItemActive}>👥 Manage Users</div>
         </nav>
         <div style={styles.logoutBtn} onClick={handleLogout}>
-          🚪 Logout
+           Logout
         </div>
       </div>
 
@@ -182,10 +182,11 @@ const styles = {
     borderLeft: "3px solid #38bdf8",
   },
   logoutBtn: {
-    padding: "12px 20px",
+    padding: "20px 20px",
+    marginBottom:"20px",
     cursor: "pointer",
     color: "#f87171",
-    fontSize: "0.9rem",
+    fontSize: "2rem",
   },
   main: { marginLeft: "220px", flex: 1, padding: "32px" },
   topbar: {
